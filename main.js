@@ -44,7 +44,7 @@ function singleRound(playerSelection, computerSelection) {
         oneRoundResult.textContent = resultOfMatch = `You Lose! ${computerSelection} beats ${playerSelection}`
         computerScore.textContent = computerResult++
     }
-    gameWinner()
+    gameWinner();
 }
 
 function gameWinner() {
