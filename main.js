@@ -1,34 +1,35 @@
 const playerScore = document.querySelector('#playerScore');
 const computerScore = document.querySelector('#computerScore');
 const resetBtn = document.querySelector('#reset');
-const optionBtn = document.querySelectorAll('#buttons button');
+const optionBtn = document.querySelectorAll('div#buttons.buttons');
 const oneRoundResult = document.querySelector('#oneRoundResult');
 const gameResult = document.querySelector('#gameResult');
 
 //reloads page once pressed resetBtn
 resetBtn.addEventListener('click', () => location.reload());
 
+//once clicked a button we call getPlayerSelection()
 optionBtn.forEach(button => { button.addEventListener('click', getPlayerSelection) });
 
-
-let gameValues = ["rock", "paper", "scissors"]
 let playerSelection;
-let computerSelection = ""
+let computerSelection = ["rock", "paper", "scissors"]
 let resultOfMatch = ""
-let playerResult = 0
-let computerResult = 0
+let playerResult = 1
+let computerResult = 1
 
+//selects a random value from the computerSelection array
 function computerPlay() {
-    let randomValue = gameValues[Math.floor(Math.random() * gameValues.length)];
-    console.log(randomValue)
-    computerSelection = randomValue
+    let randomValue = computerSelection[Math.floor(Math.random() * computerSelection.length)];
     return randomValue;
 }
 
-function singleRound(playerSelection, computerSelection) {
-    computerSelection = computerPlay().toLowerCase();
-    playerSelection = playerSelection.toLowerCase();
+//gets alt value from the image selected by the player
+function getPlayerSelection(e) {
+    playerSelection = e.target.alt;
+    singleRound(playerSelection, computerPlay());
+}
 
+function singleRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         oneRoundResult.textContent = resultOfMatch = "Tie!"
     }
@@ -43,23 +44,26 @@ function singleRound(playerSelection, computerSelection) {
         oneRoundResult.textContent = resultOfMatch = `You Lose! ${computerSelection} beats ${playerSelection}`
         computerScore.textContent = computerResult++
     }
-
-    console.log(`Player:${playerResult} vs. Computer:${computerResult}`)
     gameWinner()
 }
 
 function gameWinner() {
-    if (playerResult === 5 || computerResult === 5) {
-        return playerResult > computerResult ? gameResult.textContent = "YOU WIN!" : playerResult < computerResult ? gameResult.textContent = "YOU LOSE!" : gameResult.textContent = "TIE!"
+    if (playerResult > 5 || computerResult > 5) {
+        if (playerResult > computerResult) {
+            gameResult.textContent = "YOU WIN!"
+        }
+        else if (playerResult < computerResult) {
+            gameResult.textContent = "YOU LOSE!"
+        }
+        else if (playerResult === computerResult) {
+            gameResult.textContent = "TIE!"
+        }
+        //disables the buttons at gave over
+        optionBtn.forEach(button => {
+            button.removeEventListener('click', getPlayerSelection);
+        });
     }
 }
-
-function getPlayerSelection(e) {
-    playerSelection = (e.target.id);
-    singleRound(playerSelection, computerPlay());
-}
-
-
 
 
 
