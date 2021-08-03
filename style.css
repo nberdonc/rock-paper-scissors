@@ -13,7 +13,7 @@ body{
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 .scores{
@@ -23,6 +23,7 @@ body{
 
 .scores h3{
     text-align: center;
+    margin: 0;
 }
 
 .indScore{
@@ -30,13 +31,12 @@ body{
     height: 50px;
     border: 5px solid rgb(27, 27, 31);
     border-radius: 20%;
-    margin-top: 3px;
-    margin-bottom: 20px;
-    margin-right: 5px;
+    margin: 20px 3px 5px 3px;
     font-weight: bolder;
-    font-size: 20px;
     background-color: rgb(61, 59, 59);
     color: white;
+    text-align: center;
+    font-size: xx-large;
 }
 
 .buttons button{
@@ -56,14 +56,29 @@ body{
     height: 150px;
 }
 
+#oneRoundResult{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid rgb(27, 27, 31);
+    border-radius: 5%;
+    width: 300px;
+    height: 50px;
+    background-color: rgb(61, 59, 59);
+    text-align: center;
+    font-weight: bolder;
+    color: white;
+    font-size: 20px;
+}
 .reset{
-    width: 100px;
+    width: 200px;
     height: 50px;
     border: 5px solid rgb(27, 27, 31);
-    border-radius: 11%;
+    border-radius: 5%;
     background-color: rgb(61, 59, 59);
     color: white;
     font-size: medium;
+    margin-top: 15px;
 }
 
 .reset:hover{

@@ -2,10 +2,13 @@ const playerScore = document.querySelector('#playerScore');
 const computerScore = document.querySelector('#computerScore');
 const resetBtn = document.querySelector('#reset');
 const optionBtn = document.querySelectorAll('#buttons button');
+const oneRoundResult = document.querySelector('#oneRoundResult');
 const gameResult = document.querySelector('#gameResult');
 
-//Reset game
+//reloads page once pressed resetBtn
 resetBtn.addEventListener('click', () => location.reload());
+
+optionBtn.forEach(button => { button.addEventListener('click', getPlayerSelection) });
 
 
 let gameValues = ["rock", "paper", "scissors"]
@@ -27,7 +30,65 @@ function singleRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
 
     if (playerSelection === computerSelection) {
-        resultOfMatch = "Tie!"
+        oneRoundResult.textContent = resultOfMatch = "Tie!"
+    }
+    else if (playerSelection === "rock" && computerSelection === "scissors" ||
+        playerSelection === "scissors" && computerSelection === "paper" ||
+        playerSelection === "paper" && computerSelection === "rock"
+    ) {
+        oneRoundResult.textContent = resultOfMatch = `You Win! ${playerSelection} beats ${computerSelection}`
+        playerScore.textContent = playerResult++
+
+    } else {
+        oneRoundResult.textContent = resultOfMatch = `You Lose! ${computerSelection} beats ${playerSelection}`
+        computerScore.textContent = computerResult++
+    }
+
+    console.log(`Player:${playerResult} vs. Computer:${computerResult}`)
+    gameWinner()
+}
+
+function gameWinner() {
+    if (playerResult === 5 || computerResult === 5) {
+        return playerResult > computerResult ? gameResult.textContent = "YOU WIN!" : playerResult < computerResult ? gameResult.textContent = "YOU LOSE!" : gameResult.textContent = "TIE!"
+    }
+}
+
+function getPlayerSelection(e) {
+    playerSelection = (e.target.id);
+    singleRound(playerSelection, computerPlay());
+}
+
+
+
+
+
+
+
+
+/* SIMPLE JS RPS-GAME
+
+let gameValues = ["rock", "paper", "scissors"]
+let messageForUser = "Are you goint to play rock, paper or scissors?"
+let playerSelection;
+let computerSelection = ""
+let resultOfMatch = ""
+let playerResult = 0
+let computerResult = 0
+
+function computerPlay() {
+    let randomValue = gameValues[Math.floor(Math.random() * gameValues.length)];
+    console.log(randomValue)
+    computerSelection = randomValue
+    return randomValue;
+}
+
+function singleRound(playerSelection, computerSelection) {
+    computerSelection = computerPlay().toLowerCase();
+    playerSelection = playerSelection.toLowerCase();
+
+    if (playerSelection === computerSelection) {
+        resultOfMatch = "Tie"
     }
     else if (playerSelection === "rock" && computerSelection === "scissors" ||
         playerSelection === "scissors" && computerSelection === "paper" ||
@@ -45,20 +106,14 @@ function singleRound(playerSelection, computerSelection) {
     return resultOfMatch
 }
 
-function reset() {
-    playerResult = 0
-    computerResult = 0
-}
-
-function game(e) {
-    for (let i = 0; i < 1000; i++) {
+function game() {
+    for (let i = 0; i < 50; i++) {
         if (playerSelection > 4 || computerResult > 4) {
-            return playerResult > computerResult ? "YOU WIN!" : playerResult < computerResult ? "YOU LOSE!" : "TIE!"
+            return playerResult > computerResult ? "YOU WIN" : "YOU LOSE"
         }
-        playerSelection = (e.target.id);
+        playerSelection = window.prompt(messageForUser);
         singleRound(playerSelection, computerSelection)
     }
 }
 
-
-
+*/
